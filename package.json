@@ -1,0 +1,38 @@
+{
+  "name": "ment_backend",
+  "version": "1.0.0",
+  "description": "Invoicing app backend",
+  "main": "index.js",
+  "scripts": {
+    "freshy": "npm i && git init && npx license mit && npx gitignore node",
+    "start": "node index.js",
+    "watch:dev": "nodemon index.js",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run",
+    "update": "npm run rollback && npm run migrate && npm run seed",
+    "migrateh": "heroku run knex migrate:latest -a ment-invoice-app",
+    "rollbackh": "heroku run knex migrate:rollback -a ment-invoice-app",
+    "seedh": "heroku run knex seed:run -a ment-invoice-app",
+    "resetdbh": "npm run rollbackh && npm run migrateh && npm run seedh",
+    "databaseh": "heroku pg:psql -a ment-invoice-app",
+    "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
+    "deploy": "git push heroku main"
+  },
+  "author": "Erik Bahena",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.14",
+    "knex-cleaner": "^1.3.1",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
