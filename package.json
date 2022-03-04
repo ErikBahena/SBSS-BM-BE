@@ -4,7 +4,7 @@
   "description": "Invoicing app backend",
   "main": "index.js",
   "scripts": {
-    "freshy": "npm i && git init && npx license mit && npx gitignore node",
+    "freshy": "npm i && git init && npx license mit && npx gitignore node && npx readme-md-generator",
     "start": "node index.js",
     "watch:dev": "nodemon index.js",
     "migrate": "knex migrate:latest",
