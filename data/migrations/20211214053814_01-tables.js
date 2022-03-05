@@ -5,6 +5,7 @@ exports.up = function (knex) {
     users.string("last_name").notNullable();
     users.string("email").notNullable().unique();
     users.string("password", 200).notNullable();
+    users.boolean("policy").notNullable();
     users.string("photo_url");
   });
 };

@@ -14,7 +14,7 @@ const validateUserLogin = (req, res, next) => {
     user.email.trim() === ""
   )
     next({
-      status: 401,
+      status: 400,
       message: "invalid login",
     });
   else next();
@@ -44,7 +44,7 @@ const validatePassword = (req, res, next) => {
   if (bcrypt.compareSync(req.body.password, req.userFromDb.password)) {
     req.token = tokenBuilder(req.userFromDb);
     next();
-  } else next({ status: 401, message: "wrong password" });
+  } else next({ status: 401, message: "wrong password", type: "password" });
 };
 
 const hashPassword = (req, res, next) => {

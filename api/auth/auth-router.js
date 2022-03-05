@@ -35,13 +35,14 @@ router.post(
   validatePassword,
   (req, res) => {
     // would not want to send back passwords to the client, even if hashed.
-
     delete req.userFromDb.password;
 
-    res.status(200).json({
-      ...req.userFromDb,
-      token: req.token,
-    });
+    setTimeout(() => {
+      res.status(200).json({
+        ...req.userFromDb,
+        token: req.token,
+      });
+    }, 4000);
   }
 );
 

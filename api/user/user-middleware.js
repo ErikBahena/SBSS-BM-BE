@@ -16,8 +16,9 @@ const checkEmailExists = async (req, res, next) => {
 
   if (!user)
     next({
-      status: 401,
+      status: 400,
       message: "that email is not registered to any user",
+      type: "email",
     });
 
   req.userFromDb = user;

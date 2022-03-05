@@ -12,6 +12,7 @@ exports.seed = function (knex) {
       first_name: "fname",
       last_name: "lname",
       password: hashPassword("test"),
+      policy: true,
       user_id: 1,
     },
   ]);
