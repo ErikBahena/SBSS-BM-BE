@@ -1,12 +1,14 @@
 const router = require("express").Router();
+const User = require("../user/user-model");
 
-const User = require("../user/users-model");
+const {
+  alreadyExistsInDb,
+  checkEmailExists,
+} = require("../user/user-middleware.js");
 
 const {
   validateUserLogin,
   validateUserRegister,
-  alreadyExistsInDb,
-  checkEmailExists,
   validatePassword,
   hashPassword,
 } = require("./auth-middleware");
@@ -31,9 +33,10 @@ router.post(
   validateUserLogin,
   checkEmailExists,
   validatePassword,
-  (req, res, next) => {
+  (req, res) => {
     res.status(200).json({
-      username: req.userFromDb.username,
+      first_name: req.userFromDb.first_name,
+      last_name: req.userFromDb.last_name,
       email: req.userFromDb.email,
       user_id: req.userFromDb.user_id,
       photo_url: req.userFromDb.photo_url,

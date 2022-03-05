@@ -1,4 +1,3 @@
-const User = require("../user/users-model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -13,12 +12,12 @@ const validateUserLogin = (req, res, next) => {
     user.password.trim() === "" ||
     !user.email ||
     user.email.trim() === ""
-  ) {
+  )
     next({
-      status: 400,
+      status: 401,
       message: "invalid login",
     });
-  } else next();
+  else next();
 };
 
 const validateUserRegister = (req, res, next) => {
@@ -41,30 +40,6 @@ const validateUserRegister = (req, res, next) => {
   else next();
 };
 
-const alreadyExistsInDb = async (req, res, next) => {
-  const { email } = req.body;
-
-  const user = await User.findBy("email", email);
-
-  if (user) next({ status: 400, message: "email already in use" });
-  else next();
-};
-
-const checkEmailExists = async (req, res, next) => {
-  const { email } = req.body;
-
-  const user = await User.findBy("email", email);
-
-  if (!user)
-    return next({
-      status: 401,
-      message: "that email is not registered to any user",
-    });
-
-  req.userFromDb = user;
-  next();
-};
-
 const validatePassword = (req, res, next) => {
   if (bcrypt.compareSync(req.body.password, req.userFromDb.password)) {
     req.token = tokenBuilder(req.userFromDb);
@@ -76,7 +51,6 @@ const hashPassword = (req, res, next) => {
   const user = req.body;
 
   user.password = bcrypt.hashSync(user.password, BCRYPT_ROUNDS);
-
   req.token = tokenBuilder(user);
   req.user = user;
 
@@ -86,10 +60,11 @@ const hashPassword = (req, res, next) => {
 const restricted = (req, res, next) => {
   const token = req.headers.authorization;
 
-  if (!token) return next({ status: 401, message: "token required" });
+  if (!token) next({ status: 401, message: "token required" });
 
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) return next({ status: 401, message: "token invalid" });
+    // the decoded value would be equal to the object in the tokenBuilder funciton
+    if (err) next({ status: 401, message: "token invalid" });
     else next();
   });
 };
@@ -97,8 +72,6 @@ const restricted = (req, res, next) => {
 module.exports = {
   validateUserLogin,
   validateUserRegister,
-  alreadyExistsInDb,
-  checkEmailExists,
   validatePassword,
   hashPassword,
   restricted,

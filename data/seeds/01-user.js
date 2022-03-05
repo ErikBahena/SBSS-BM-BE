@@ -1,5 +1,5 @@
 exports.seed = function (knex) {
-  return knex("users").insert([
+  return knex("user").insert([
     {
       email: "test@gmail.com",
       password: "test",

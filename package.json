@@ -1,7 +1,8 @@
 {
-  "name": "ment_backend",
+  "name": "project_name",
+  "author": "Erik Bahena",
   "version": "1.0.0",
-  "description": "Invoicing app backend",
+  "description": "This is boiler-plate code when you're starting a new postgres backend project.",
   "main": "index.js",
   "scripts": {
     "freshy": "npm i && git init && npx license mit && npx gitignore node && npx readme-md-generator",
@@ -11,15 +12,14 @@
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
     "update": "npm run rollback && npm run migrate && npm run seed",
-    "migrateh": "heroku run knex migrate:latest -a ment-invoice-app",
-    "rollbackh": "heroku run knex migrate:rollback -a ment-invoice-app",
-    "seedh": "heroku run knex seed:run -a ment-invoice-app",
+    "migrateh": "heroku run knex migrate:latest -a PROJECT_NAME",
+    "rollbackh": "heroku run knex migrate:rollback -a PROJECT_NAME",
+    "seedh": "heroku run knex seed:run -a PROJECT_NAME",
     "resetdbh": "npm run rollbackh && npm run migrateh && npm run seedh",
-    "databaseh": "heroku pg:psql -a ment-invoice-app",
+    "databaseh": "heroku pg:psql -a PROJECT_NAME",
     "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
     "deploy": "git push heroku main"
   },
-  "author": "Erik Bahena",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
