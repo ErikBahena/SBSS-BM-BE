@@ -14,21 +14,49 @@ async function findById(user_id) {
 }
 
 async function findBy(arg1, arg2) {
-  return await db("user")
+  return await db("user as u")
     .select(
-      "user_id",
-      "first_name",
-      "last_name",
-      "email",
-      "password",
-      "photo_url"
+      "u.user_id",
+      "u.first_name",
+      "u.last_name",
+      "u.email",
+      "u.password",
+      "u.photo_url",
+      "u.phone",
+      "ua.state",
+      "ua.street",
+      "ua.city",
+      "ua.postal_code",
+      "ua.country",
+      "ua.user_address_id"
     )
     .where(arg1, arg2)
-    .first();
+    .first()
+    .leftJoin("user_address as ua", "u.user_id", "ua.user_id");
 }
 
-async function updateUser(user_id, newData) {
-  return await db("user").update(newData).where("user_id", user_id);
+async function updateUser(user_id, user_address_id, userAccount, userAddress) {
+  const updatedUser = await db
+    .transaction(function (trx) {
+      db("user")
+        .transacting(trx)
+        .update(userAccount)
+        .where("user_id", user_id)
+        .then(() => {
+          db("user_address as ua")
+            .update(userAddress)
+            .where("ua.user_address_id", user_address_id)
+            .then(trx.commit)
+            .catch(trx.rollback);
+        })
+        .catch(trx.rollback);
+    })
+    .then(() => findBy("u.user_id", user_id))
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+
+  return updatedUser;
 }
 
 async function deleteUser(user_id) {

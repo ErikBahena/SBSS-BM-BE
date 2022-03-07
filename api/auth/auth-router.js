@@ -13,6 +13,8 @@ const {
   hashPassword,
 } = require("./auth-middleware");
 
+const { formatUserData } = require("../utils");
+
 router.post(
   "/register",
   validateUserRegister,
@@ -38,11 +40,10 @@ router.post(
     delete req.userFromDb.password;
 
     setTimeout(() => {
-      res.status(200).json({
-        ...req.userFromDb,
-        token: req.token,
-      });
-    }, 4000);
+      res
+        .status(200)
+        .json({ ...formatUserData(req.userFromDb), token: req.token });
+    }, 500);
   }
 );
 

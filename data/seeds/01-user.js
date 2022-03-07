@@ -8,12 +8,12 @@ const hashPassword = (originalPassword) => {
 exports.seed = function (knex) {
   return knex("user").insert([
     {
-      email: "test@gmail.com",
-      first_name: "fname",
-      last_name: "lname",
-      password: hashPassword("test"),
+      email: "erikjbahena@gmail.com",
+      first_name: "ErIk",
+      last_name: "BahEna Zuniga",
+      password: hashPassword("erik"),
       policy: true,
-      user_id: 1,
+      photo_url: "https://avatars.githubusercontent.com/u/80177106?v=4",
     },
   ]);
 };

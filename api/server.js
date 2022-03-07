@@ -14,7 +14,7 @@ server.use("/api/auth", authRouter);
 server.use("/api/user", userRouter);
 
 server.use((err, req, res, next) => {
-  res.status(err.status || 500).json({ ...err });
+  res.status(err.status || 500).json({ ...err, stack: err.stack });
 });
 
 module.exports = server;
