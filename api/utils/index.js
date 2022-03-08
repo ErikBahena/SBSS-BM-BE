@@ -22,6 +22,7 @@ const formatClientData = (clientData) => ({
   email: clientData.email,
   photo_url: clientData.photo_url,
   phone: clientData.phone,
+  created_at: clientData.created_at,
 
   address: {
     client_address_id: clientData.client_address_id,

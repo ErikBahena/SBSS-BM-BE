@@ -16,6 +16,7 @@ async function findById(client_id) {
       "c.last_name",
       "c.email",
       "c.photo_url",
+      "c.created_at",
       "ca.client_address_id",
       "ca.street",
       "ca.state",
@@ -36,6 +37,7 @@ async function getAll(user_id) {
       "c.email",
       "c.phone",
       "c.photo_url",
+      "c.created_at",
 
       "ca.client_address_id",
       "ca.street",
