@@ -6,7 +6,7 @@ const { formatClientData, formatUserClients } = require("../utils/index.js");
 
 // get a clients info by client_id
 
-router.get("/:client_id", (req, res, next) => {
+router.get("/:client_id", restricted, (req, res, next) => {
   Client.findById(req.params.client_id)
     .then((client) => res.status(200).json(formatClientData(client)))
     .catch(next);
@@ -14,10 +14,14 @@ router.get("/:client_id", (req, res, next) => {
 
 // get all clients related to a user_id
 
-router.get("/getAll/:user_id", (req, res, next) => {
-  Client.getAll(req.params.user_id)
-    .then((userClients) => res.status(200).json(formatUserClients(userClients)))
-    .catch(next);
+router.get("/getAll/:user_id", restricted, (req, res, next) => {
+  setTimeout(() => {
+    Client.getAll(req.params.user_id)
+      .then((userClients) =>
+        res.status(200).json(formatUserClients(userClients))
+      )
+      .catch(next);
+  }, 2000);
 });
 
 // router.put("/:client_id/:client_address_id", restricted, (req, res, next) => {
