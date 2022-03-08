@@ -2,11 +2,11 @@ const router = require("express").Router();
 const Client = require("./client-model.js");
 
 const { restricted } = require("../auth/auth-middleware");
-// const { formatClientData } = require("../utils/index.js");
+const { formatClientData } = require("../utils/index.js");
 
 router.get("/:client_id", (req, res, next) => {
   Client.findById(req.params.client_id)
-    .then((client) => res.status(200).json(client))
+    .then((client) => res.status(200).json(formatClientData(client)))
     .catch(next);
 });
 
