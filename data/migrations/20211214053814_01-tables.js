@@ -36,6 +36,7 @@ exports.up = function (knex) {
       client.string("last_name").notNullable();
       client.string("email").notNullable().unique();
       client.string("phone").notNullable();
+      client.string("photo_url");
 
       client
         .integer("user_id")

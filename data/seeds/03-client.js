@@ -5,6 +5,7 @@ exports.seed = function (knex) {
       first_name: "guest",
       last_name: "client",
       phone: "3608435534",
+      photo_url: "",
       user_id: 1,
     },
   ]);
