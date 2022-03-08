@@ -1,7 +1,7 @@
 exports.seed = function (knex) {
-  return knex("user_address").insert([
+  return knex("client_address").insert([
     {
-      user_id: 1,
+      client_id: 1,
       street: "123 Guest Street",
       city: "Guestville",
       state: "default",

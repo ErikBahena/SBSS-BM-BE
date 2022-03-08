@@ -4,6 +4,7 @@ const formatUserData = (userData) => ({
   last_name: userData.last_name,
   email: userData.email,
   photo_url: userData.photo_url,
+  phone: userData.phone,
 
   address: {
     user_address_id: userData.user_address_id,
