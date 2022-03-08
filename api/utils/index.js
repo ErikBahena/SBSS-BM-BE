@@ -32,8 +32,11 @@ const formatClientData = (clientData) => ({
     city: clientData.city,
   },
 });
+const formatUserClients = (userClients) =>
+  userClients.map((clientData) => formatClientData(clientData));
 
 module.exports = {
   formatUserData,
   formatClientData,
+  formatUserClients,
 };

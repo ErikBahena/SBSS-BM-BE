@@ -27,5 +27,26 @@ async function findById(client_id) {
     .first()
     .leftJoin("client_address as ca", "c.client_id", "ca.client_address_id");
 }
+async function getAll(user_id) {
+  return await db("user as u")
+    .select(
+      "c.client_id",
+      "c.first_name",
+      "c.last_name",
+      "c.email",
+      "c.phone",
+      "c.photo_url",
 
-module.exports = { addClient, findById };
+      "ca.client_address_id",
+      "ca.street",
+      "ca.state",
+      "ca.country",
+      "ca.city",
+      "ca.postal_code"
+    )
+    .where("c.user_id", user_id)
+    .leftJoin("client as c", "u.user_id", "c.user_id")
+    .leftJoin("client_address as ca", "c.client_id", "ca.client_id");
+}
+
+module.exports = { addClient, findById, getAll };
