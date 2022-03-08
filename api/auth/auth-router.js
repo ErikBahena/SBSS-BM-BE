@@ -43,7 +43,7 @@ router.post(
       res
         .status(200)
         .json({ ...formatUserData(req.userFromDb), token: req.token });
-    }, 500);
+    }, 1000);
   }
 );
 

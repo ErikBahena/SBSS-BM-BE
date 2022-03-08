@@ -32,7 +32,11 @@ router.put("/:user_id/:user_address_id", restricted, (req, res, next) => {
     userAccount,
     userAddress
   )
-    .then((updatedUser) => res.status(200).json(formatUserData(updatedUser)))
+    .then((updatedUser) => {
+      setTimeout(() => {
+        res.status(200).json(formatUserData(updatedUser));
+      }, 1000);
+    })
     .catch(next);
 });
 
