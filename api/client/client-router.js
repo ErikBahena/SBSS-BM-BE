@@ -26,11 +26,11 @@ router.get("/getAll/:user_id", restricted, (req, res, next) => {
 
 // add a new client for a user
 
-router.post("/add", restricted, (req, res, next) => {
+router.post("/add", (req, res, next) => {
   setTimeout(() => {
-    Client.addClient()
+    Client.addClient(req.body)
       .then((userClients) =>
-        res.status(200).json(formatUserClients(userClients))
+        res.status(201).json(formatUserClients(userClients))
       )
       .catch(next);
   }, 2000);
