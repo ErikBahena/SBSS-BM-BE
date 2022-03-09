@@ -1,11 +1,9 @@
 const db = require("../../data/dbConfig");
 
 async function addClient(newClient) {
-  const [newClientId] = await db("client as c")
-    .insert(newClient)
-    .returning("c.*");
+  await db("client as c").insert(newClient);
 
-  return findById(newClientId);
+  return getAll(newClient.user_id);
 }
 
 async function findById(client_id) {
@@ -28,6 +26,7 @@ async function findById(client_id) {
     .first()
     .leftJoin("client_address as ca", "c.client_id", "ca.client_address_id");
 }
+
 async function getAll(user_id) {
   return await db("user as u")
     .select(
