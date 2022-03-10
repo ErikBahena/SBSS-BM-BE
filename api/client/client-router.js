@@ -24,6 +24,14 @@ router.get("/getAll/:user_id", restricted, (req, res, next) => {
   }, 2000);
 });
 
+// add a new client for a user
+
+router.post("/add", (req, res, next) => {
+  Client.addClient(req.body)
+    .then((userClients) => res.status(201).json(formatUserClients(userClients)))
+    .catch(next);
+});
+
 // router.put("/:client_id/:client_address_id", restricted, (req, res, next) => {
 //   const clientAccount = {
 //     first_name: req.body.first_name,

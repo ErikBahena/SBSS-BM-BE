@@ -15,6 +15,7 @@ const formatUserData = (userData) => ({
     city: userData.city,
   },
 });
+
 const formatClientData = (clientData) => ({
   client_id: clientData.client_id,
   first_name: clientData.first_name,
@@ -33,11 +34,36 @@ const formatClientData = (clientData) => ({
     city: clientData.city,
   },
 });
+
 const formatUserClients = (userClients) =>
   userClients.map((clientData) => formatClientData(clientData));
+
+const formatEmployeeData = (employeeData) => ({
+  employee_id: employeeData.employee_id,
+  first_name: employeeData.first_name,
+  last_name: employeeData.last_name,
+  email: employeeData.email,
+  photo_url: employeeData.photo_url,
+  phone: employeeData.phone,
+  created_at: employeeData.created_at,
+
+  address: {
+    employee_address_id: employeeData.employee_address_id,
+    street: employeeData.street,
+    state: employeeData.state,
+    country: employeeData.country,
+    postal_code: employeeData.postal_code,
+    city: employeeData.city,
+  },
+});
+
+const formatUserEmployees = (userEmployees) =>
+  userEmployees.map((employeeData) => formatEmployeeData(employeeData));
 
 module.exports = {
   formatUserData,
   formatClientData,
   formatUserClients,
+  formatUserEmployees,
+  formatEmployeeData,
 };

@@ -1,11 +1,45 @@
 const db = require("../../data/dbConfig");
 
 async function addClient(newClient) {
-  const [newClientId] = await db("client as c")
-    .insert(newClient)
-    .returning("c.*");
+  const user_id = newClient.user_id;
 
-  return findById(newClientId);
+  const clientInfo = {
+    first_name: newClient.first_name,
+    last_name: newClient.last_name,
+    email: newClient.email,
+    phone: newClient.phone,
+    user_id,
+  };
+  const clientAddress = {
+    street: newClient.street,
+    city: newClient.city,
+    state: newClient.state,
+    country: newClient.country,
+    postal_code: newClient.postal_code,
+  };
+
+  return await db
+    .transaction((trx) =>
+      db("client as c")
+        .transacting(trx)
+        .insert(clientInfo)
+        .returning("c.client_id")
+        .then((insertedClientId) => {
+          clientAddress.client_id = insertedClientId[0];
+
+          db("client_address")
+            .insert(clientAddress)
+            .then(trx.commit)
+            .catch(trx.rollback);
+        })
+        .catch(trx.rollback)
+    )
+    .then(() => {
+      return getAll(user_id);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
 }
 
 async function findById(client_id) {
@@ -28,6 +62,7 @@ async function findById(client_id) {
     .first()
     .leftJoin("client_address as ca", "c.client_id", "ca.client_address_id");
 }
+
 async function getAll(user_id) {
   return await db("user as u")
     .select(
