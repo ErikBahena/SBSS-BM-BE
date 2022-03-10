@@ -64,11 +64,49 @@ exports.up = function (knex) {
         .references("client_id")
         .inTable("client")
         .onDelete("RESTRICT");
+    })
+    .createTable("employee", (employee) => {
+      employee.increments("employee_id");
+
+      employee.string("first_name").notNullable();
+      employee.string("last_name").notNullable();
+      employee.string("email").notNullable().unique();
+      employee.string("phone").notNullable();
+      employee.string("photo_url");
+
+      employee
+        .integer("user_id")
+        .unsigned()
+        .notNullable()
+        .references("user_id")
+        .inTable("user")
+        .onDelete("RESTRICT");
+
+      employee.timestamps(true, true);
+    })
+    .createTable("employee_address", (table) => {
+      table.increments("employee_address_id");
+
+      table.string("street", 100).notNullable();
+      table.string("city", 100).notNullable();
+      table.string("postal_code", 10).notNullable();
+      table.string("state", 30).notNullable();
+      table.string("country", 50).notNullable();
+
+      table
+        .integer("employee_id")
+        .unsigned()
+        .notNullable()
+        .references("employee_id")
+        .inTable("employee")
+        .onDelete("RESTRICT");
     });
 };
 
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists("employee_address")
+    .dropTableIfExists("employee")
     .dropTableIfExists("client_address")
     .dropTableIfExists("client")
     .dropTableIfExists("user_address")

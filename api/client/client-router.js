@@ -27,13 +27,9 @@ router.get("/getAll/:user_id", restricted, (req, res, next) => {
 // add a new client for a user
 
 router.post("/add", (req, res, next) => {
-  setTimeout(() => {
-    Client.addClient(req.body)
-      .then((userClients) =>
-        res.status(201).json(formatUserClients(userClients))
-      )
-      .catch(next);
-  }, 2000);
+  Client.addClient(req.body)
+    .then((userClients) => res.status(201).json(formatUserClients(userClients)))
+    .catch(next);
 });
 
 // router.put("/:client_id/:client_address_id", restricted, (req, res, next) => {
