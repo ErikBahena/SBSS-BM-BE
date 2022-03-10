@@ -61,7 +61,7 @@ async function findById(employee_id) {
     .where("e.employee_id", employee_id)
     .first()
     .leftJoin(
-      "employee_address as ca",
+      "employee_address as ea",
       "e.employee_id",
       "ea.employee_address_id"
     );

@@ -29,7 +29,7 @@ router.get("/getAll/:user_id", restricted, (req, res, next) => {
 
 // add a new employee for a user
 
-router.post("/add", (req, res, next) => {
+router.post("/add", restricted, (req, res, next) => {
   Employee.addEmployee(req.body)
     .then((userEmployees) =>
       res.status(201).json(formatUserEmployees(userEmployees))
