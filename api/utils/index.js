@@ -79,6 +79,8 @@ const formatJob = (jobData) => ({
     email: jobData.client_email,
     phone: jobData.client_phone,
   },
+
+  employees: jobData.employees,
 });
 
 const formatUserJobs = (userJobs) =>

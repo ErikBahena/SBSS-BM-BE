@@ -1,7 +1,7 @@
 const db = require("../../data/dbConfig");
 
 async function findBy(arg1, arg2) {
-  return await db("job as j")
+  const jobs = await db("job as j")
     .select(
       "j.job_id",
       "j.user_id",
@@ -16,6 +16,23 @@ async function findBy(arg1, arg2) {
     )
     .where(arg1, arg2)
     .leftJoin("client as c", "j.client_id", "c.client_id");
+
+  return await Promise.all(
+    jobs.map(async (job) => {
+      job.employees = await db("job_employee as je")
+        .select(
+          "e.first_name",
+          "e.last_name",
+          "e.employee_id",
+          "e.phone",
+          "e.photo_url"
+        )
+        .where("je.job_id", job.job_id)
+        .leftJoin("employee as e", "e.employee_id", "je.employee_id");
+
+      return job;
+    })
+  );
 }
 
 module.exports = { findBy };
