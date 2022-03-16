@@ -6,7 +6,7 @@ const allJobs = [
     title: "Mike Bowers Interior",
     created_at: "2022-03-07 21:10:52.727684-08",
     updated_at: "2022-03-07 21:10:52.727684-08",
-    // user_id: 1, // foreign key referencing a user in user table
+    user_id: 1, // foreign key referencing a user in user table
 
     client: {
       client_id: 1, // foreign key referencing a client in client table

@@ -16,6 +16,8 @@ const formatUserData = (userData) => ({
   },
 });
 
+// Client Data Formating
+
 const formatClientData = (clientData) => ({
   client_id: clientData.client_id,
   first_name: clientData.first_name,
@@ -37,6 +39,8 @@ const formatClientData = (clientData) => ({
 
 const formatUserClients = (userClients) =>
   userClients.map((clientData) => formatClientData(clientData));
+
+// Employee Data Formating
 
 const formatEmployeeData = (employeeData) => ({
   employee_id: employeeData.employee_id,
@@ -60,10 +64,32 @@ const formatEmployeeData = (employeeData) => ({
 const formatUserEmployees = (userEmployees) =>
   userEmployees.map((employeeData) => formatEmployeeData(employeeData));
 
+// Job Data Formating
+
+const formatJob = (jobData) => ({
+  job_id: jobData.job_id,
+  title: jobData.title,
+  description: jobData.description,
+  created_at: jobData.created_at,
+
+  client: {
+    id: jobData.client_id,
+    first_name: jobData.client_first_name,
+    last_name: jobData.client_last_name,
+    email: jobData.client_email,
+    phone: jobData.client_phone,
+  },
+});
+
+const formatUserJobs = (userJobs) =>
+  userJobs.map((jobData) => formatJob(jobData));
+
 module.exports = {
   formatUserData,
   formatClientData,
   formatUserClients,
   formatUserEmployees,
   formatEmployeeData,
+  formatJob,
+  formatUserJobs,
 };
