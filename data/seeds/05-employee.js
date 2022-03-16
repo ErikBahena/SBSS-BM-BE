@@ -1,20 +1,39 @@
 exports.seed = function (knex) {
   return knex("employee").insert([
     {
-      email: "guestemployee@gmail.com",
-      first_name: "guest",
-      last_name: "employee",
-      phone: "3608435534",
-      photo_url: "",
       user_id: 1,
+      email: "id.risus@icloud.org",
+      first_name: "Cheryl",
+      last_name: "Ashley",
+      phone: "(135) 339-4965",
     },
     {
-      email: "guestemployee2@gmail.com",
-      first_name: "guest2",
-      last_name: "employee2",
-      phone: "3608435533",
-      photo_url: "",
       user_id: 1,
+      email: "ac.arcu@protonmail.com",
+      first_name: "Wallace",
+      last_name: "Bradford",
+      phone: "(686) 818-3252",
+    },
+    {
+      user_id: 1,
+      email: "luctus@icloud.org",
+      first_name: "Nevada",
+      last_name: "Roach",
+      phone: "1-576-538-2158",
+    },
+    {
+      user_id: 1,
+      email: "leo.in.lobortis@protonmail.net",
+      first_name: "Kaseem",
+      last_name: "Knowles",
+      phone: "1-682-447-2586",
+    },
+    {
+      user_id: 1,
+      email: "dis.parturient@outlook.edu",
+      first_name: "Germaine",
+      last_name: "Peters",
+      phone: "(513) 349-6554",
     },
   ]);
 };

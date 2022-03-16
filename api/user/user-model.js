@@ -1,9 +1,37 @@
 const db = require("../../data/dbConfig");
 
-async function addUser(newUser) {
-  const [newUserId] = await db("user as u").insert(newUser).returning("u.*");
+const defaultAddress = {
+  street: "",
+  city: "",
+  postal_code: "",
+  state: "default",
+  country: "",
+};
 
-  return findById(newUserId);
+async function addUser(newUser) {
+  const createdUser = await db
+    .transaction(function (trx) {
+      db("user as u")
+        .insert(newUser)
+        .returning("u.user_id")
+        .then((newUserId) => {
+          db("user_address as ua")
+            .insert({
+              ...defaultAddress,
+              user_id: newUserId[0],
+            })
+            .returning("ua.user_id")
+            .then(trx.commit)
+            .catch(trx.rollback);
+        })
+        .catch(trx.rollback);
+    })
+    .then((newUserId) => findBy("u.user_id", newUserId[0]))
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+
+  return createdUser;
 }
 
 async function findById(user_id) {

@@ -23,8 +23,7 @@ router.post(
   (req, res, next) => {
     User.addUser(req.user)
       .then((newUser) => {
-        newUser.token = req.token;
-        res.status(201).json(newUser);
+        res.status(201).json({ ...formatUserData(newUser), token: req.token });
       })
       .catch(next);
   }
