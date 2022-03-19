@@ -38,11 +38,9 @@ router.post(
     // would not want to send back passwords to the client, even if hashed.
     delete req.userFromDb.password;
 
-    setTimeout(() => {
-      res
-        .status(200)
-        .json({ ...formatUserData(req.userFromDb), token: req.token });
-    }, 1000);
+    res
+      .status(200)
+      .json({ ...formatUserData(req.userFromDb), token: req.token });
   }
 );
 

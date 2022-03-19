@@ -23,7 +23,7 @@ async function findBy(arg1, arg2) {
         .select(
           "e.first_name",
           "e.last_name",
-          "e.employee_id",
+          "e.employee_id as id",
           "e.phone",
           "e.photo_url"
         )
@@ -35,4 +35,8 @@ async function findBy(arg1, arg2) {
   );
 }
 
-module.exports = { findBy };
+const deleteJobEmployee = async (job_id, employee_id) => {
+  return await db("job_employee as je").where({ job_id, employee_id }).del();
+};
+
+module.exports = { findBy, deleteJobEmployee };

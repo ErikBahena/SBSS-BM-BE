@@ -15,13 +15,9 @@ router.get("/:client_id", restricted, (req, res, next) => {
 // get all clients related to a user_id
 
 router.get("/getAll/:user_id", restricted, (req, res, next) => {
-  setTimeout(() => {
-    Client.getAll(req.params.user_id)
-      .then((userClients) =>
-        res.status(200).json(formatUserClients(userClients))
-      )
-      .catch(next);
-  }, 2000);
+  Client.getAll(req.params.user_id)
+    .then((userClients) => res.status(200).json(formatUserClients(userClients)))
+    .catch(next);
 });
 
 // add a new client for a user

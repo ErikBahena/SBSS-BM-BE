@@ -16,4 +16,11 @@ router.get("/user-jobs/:user_id", (req, res, next) => {
     .catch(next);
 });
 
+// delete an employee from a job
+router.delete("/delete-employee/:job_id/:employee_id", (req, res, next) => {
+  Job.deleteJobEmployee(req.params.job_id, req.params.employee_id)
+    .then(() => res.status(204))
+    .catch(next);
+});
+
 module.exports = router;

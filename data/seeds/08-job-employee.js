@@ -20,5 +20,9 @@ exports.seed = function (knex) {
       job_id: 3,
       employee_id: 5,
     },
+    {
+      job_id: 4,
+      employee_id: 5,
+    },
   ]);
 };
