@@ -12,14 +12,16 @@ router.get("/:job_id", (req, res, next) => {
 
 router.get("/user-jobs/:user_id", (req, res, next) => {
   Job.findBy("j.user_id", req.params.user_id)
-    .then((jobs) => res.status(200).json(formatUserJobs(jobs)))
+    .then((jobs) => {
+      res.status(200).json(formatUserJobs(jobs));
+    })
     .catch(next);
 });
 
 // delete an employee from a job
 router.delete("/delete-employee/:job_id/:employee_id", (req, res, next) => {
   Job.deleteJobEmployee(req.params.job_id, req.params.employee_id)
-    .then(() => res.status(204))
+    .then(() => res.status(204).json("success"))
     .catch(next);
 });
 

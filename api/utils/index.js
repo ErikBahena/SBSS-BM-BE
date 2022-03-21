@@ -81,6 +81,8 @@ const formatJob = (jobData) => ({
   },
 
   employees: jobData.employees,
+
+  excluded_employees: jobData.excluded_employees,
 });
 
 const formatUserJobs = (userJobs) =>
