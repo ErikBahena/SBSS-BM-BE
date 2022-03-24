@@ -25,4 +25,11 @@ router.delete("/delete-employee/:job_id/:employee_id", (req, res, next) => {
     .catch(next);
 });
 
+// add a job employee
+router.post("/add-employee/:job_id/:employee_id", (req, res, next) => {
+  Job.addJobEmployee(req.params.job_id, req.params.employee_id)
+    .then(() => res.status(201).json("success"))
+    .catch(next);
+});
+
 module.exports = router;

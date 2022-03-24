@@ -67,4 +67,8 @@ const deleteJobEmployee = async (job_id, employee_id) => {
   //   .leftJoin("employee as e", "e.employee_id", "je.employee_id");
 };
 
-module.exports = { findBy, deleteJobEmployee };
+const addJobEmployee = async (job_id, employee_id) => {
+  return await db("job_employee").insert({ job_id, employee_id });
+};
+
+module.exports = { findBy, deleteJobEmployee, addJobEmployee };

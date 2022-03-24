@@ -143,11 +143,30 @@ exports.up = function (knex) {
         .references("employee_id")
         .inTable("employee")
         .onDelete("RESTRICT");
+    })
+    .createTable("job_employee_labor", (table) => {
+      table.increments("job_employee_labor_id");
+
+      table.timestamps(true, true);
+
+      table.string("start").notNullable();
+      table.string("end").notNullable();
+
+      table.string("description").notNullable();
+
+      table
+        .integer("job_employee_id")
+        .unsigned()
+        .notNullable()
+        .references("job_employee_id")
+        .inTable("job_employee")
+        .onDelete("RESTRICT");
     });
 };
 
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists("job_employee_labor")
     .dropTableIfExists("job_employee")
     .dropTableIfExists("job")
     .dropTableIfExists("employee_address")
