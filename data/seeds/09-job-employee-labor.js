@@ -1,7 +1,6 @@
 exports.seed = function (knex) {
   return knex("job_employee_labor").insert([
     {
-      job_employee_labor_id: 1,
       start: "Wed Mar 23 2022 18:48:14 GMT-0700 (Pacific Daylight Time)",
       end: "Wed Mar 23 2022 20:48:14 GMT-0700 (Pacific Daylight Time)",
       description:
@@ -9,7 +8,12 @@ exports.seed = function (knex) {
       job_employee_id: 1,
     },
     {
-      job_employee_labor_id: 2,
+      start: "Wed Mar 23 2022 18:48:14 GMT-0700 (Pacific Daylight Time)",
+      end: "Wed Mar 23 2022 20:48:14 GMT-0700 (Pacific Daylight Time)",
+      description: "nec orci. Donec asdn teht jdfiemms  sdfj  ejf nc ut",
+      job_employee_id: 1,
+    },
+    {
       start: "Wed Mar 23 2022 18:48:14 GMT-0700 (Pacific Daylight Time)",
       end: "Wed Mar 23 2022 20:48:14 GMT-0700 (Pacific Daylight Time)",
       description:
@@ -17,7 +21,6 @@ exports.seed = function (knex) {
       job_employee_id: 2,
     },
     {
-      job_employee_labor_id: 3,
       start: "Wed Mar 23 2022 18:48:14 GMT-0700 (Pacific Daylight Time)",
       end: "Wed Mar 23 2022 20:48:14 GMT-0700 (Pacific Daylight Time)",
       description:
@@ -25,7 +28,6 @@ exports.seed = function (knex) {
       job_employee_id: 3,
     },
     {
-      job_employee_labor_id: 4,
       start: "Wed Mar 23 2022 18:48:14 GMT-0700 (Pacific Daylight Time)",
       end: "Wed Mar 23 2022 20:48:14 GMT-0700 (Pacific Daylight Time)",
       description:
@@ -33,7 +35,13 @@ exports.seed = function (knex) {
       job_employee_id: 4,
     },
     {
-      job_employee_labor_id: 5,
+      start: "Wed Mar 23 2022 18:48:14 GMT-0700 (Pacific Daylight Time)",
+      end: "Wed Mar 23 2022 20:48:14 GMT-0700 (Pacific Daylight Time)",
+      description:
+        "est, congue a, aliquet vel, vulputate eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu,",
+      job_employee_id: 5,
+    },
+    {
       start: "Wed Mar 23 2022 18:48:14 GMT-0700 (Pacific Daylight Time)",
       end: "Wed Mar 23 2022 20:48:14 GMT-0700 (Pacific Daylight Time)",
       description:

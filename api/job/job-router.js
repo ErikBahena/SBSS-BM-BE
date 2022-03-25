@@ -31,5 +31,12 @@ router.post("/add-employee/:job_id/:employee_id", (req, res, next) => {
     .then(() => res.status(201).json("success"))
     .catch(next);
 });
+router.post("/add-employee-labor", (req, res, next) => {
+  setTimeout(() => {
+    Job.addJobEmployeeLabor(req.body)
+      .then(() => res.status(201).json("success"))
+      .catch(next);
+  }, 2000);
+});
 
 module.exports = router;

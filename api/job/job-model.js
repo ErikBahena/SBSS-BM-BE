@@ -25,10 +25,26 @@ async function findBy(arg1, arg2) {
           "e.last_name",
           "e.employee_id as id",
           "e.phone",
-          "e.photo_url"
+          "e.photo_url",
+          "je.job_employee_id"
         )
         .where("je.job_id", job.job_id)
         .leftJoin("employee as e", "e.employee_id", "je.employee_id");
+
+      job.employees.map(async (je) => {
+        const { job_employee_id } = je;
+
+        je.labor_hours = await db("job_employee_labor as jel")
+          .select(
+            "jel.description",
+            "jel.start",
+            "jel.end",
+            "jel.job_employee_labor_id"
+          )
+          .where("jel.job_employee_id", job_employee_id);
+
+        return je;
+      });
 
       const allEmployees = await db("employee as e")
         .select(
@@ -71,4 +87,13 @@ const addJobEmployee = async (job_id, employee_id) => {
   return await db("job_employee").insert({ job_id, employee_id });
 };
 
-module.exports = { findBy, deleteJobEmployee, addJobEmployee };
+const addJobEmployeeLabor = async (newEvent) => {
+  return await db("job_employee_labor").insert(newEvent);
+};
+
+module.exports = {
+  findBy,
+  deleteJobEmployee,
+  addJobEmployee,
+  addJobEmployeeLabor,
+};
