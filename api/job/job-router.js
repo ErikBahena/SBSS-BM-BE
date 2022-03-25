@@ -31,12 +31,18 @@ router.post("/add-employee/:job_id/:employee_id", (req, res, next) => {
     .then(() => res.status(201).json("success"))
     .catch(next);
 });
+
+router.get("/get-employee-labor/:job_employee_id", (req, res, next) => {
+  Job.getJobEmployeeLaborHours(req.params.job_employee_id)
+    .then((employeeLabor) => res.status(200).json({ employeeLabor }))
+    .catch(next);
+});
+
+// add an labor to a job regarding an employee
 router.post("/add-employee-labor", (req, res, next) => {
-  setTimeout(() => {
-    Job.addJobEmployeeLabor(req.body)
-      .then(() => res.status(201).json("success"))
-      .catch(next);
-  }, 2000);
+  Job.addJobEmployeeLabor(req.body)
+    .then(() => res.status(201).json("success"))
+    .catch(next);
 });
 
 module.exports = router;

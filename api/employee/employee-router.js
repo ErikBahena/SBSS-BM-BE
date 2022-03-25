@@ -18,11 +18,15 @@ router.get("/:employee_id", restricted, (req, res, next) => {
 // get all employees related to a user_id
 
 router.get("/getAll/:user_id", restricted, (req, res, next) => {
-  Employee.getAll(req.params.user_id)
-    .then((userEmployees) =>
-      res.status(200).json(formatUserEmployees(userEmployees))
-    )
-    .catch(next);
+
+  setTimeout(() => {
+    Employee.getAll(req.params.user_id)
+      .then((userEmployees) =>
+        res.status(200).json(formatUserEmployees(userEmployees))
+      )
+      .catch(next);
+
+  }, 2000)
 });
 
 // add a new employee for a user
