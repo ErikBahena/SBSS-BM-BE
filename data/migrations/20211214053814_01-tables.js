@@ -44,7 +44,7 @@ exports.up = function (knex) {
         .notNullable()
         .references("user_id")
         .inTable("user")
-        .onDelete("RESTRICT");
+        .onDelete("CASCADE");
 
       client.timestamps(true, true);
     })
@@ -63,7 +63,7 @@ exports.up = function (knex) {
         .notNullable()
         .references("client_id")
         .inTable("client")
-        .onDelete("RESTRICT");
+        .onDelete("CASCADE");
     })
     .createTable("employee", (employee) => {
       employee.increments("employee_id");
@@ -80,7 +80,7 @@ exports.up = function (knex) {
         .notNullable()
         .references("user_id")
         .inTable("user")
-        .onDelete("RESTRICT");
+        .onDelete("CASCADE");
 
       employee.timestamps(true, true);
     })
@@ -99,7 +99,7 @@ exports.up = function (knex) {
         .notNullable()
         .references("employee_id")
         .inTable("employee")
-        .onDelete("RESTRICT");
+        .onDelete("CASCADE");
     })
     .createTable("job", (table) => {
       table.increments("job_id");
@@ -122,7 +122,7 @@ exports.up = function (knex) {
         .notNullable()
         .references("client_id")
         .inTable("client")
-        .onDelete("RESTRICT");
+        .onDelete("CASCADE");
     })
     .createTable("job_employee", (table) => {
       table.increments("job_employee_id");
@@ -134,7 +134,7 @@ exports.up = function (knex) {
         .notNullable()
         .references("job_id")
         .inTable("job")
-        .onDelete("RESTRICT");
+        .onDelete("CASCADE");
 
       table
         .integer("employee_id")
@@ -142,7 +142,7 @@ exports.up = function (knex) {
         .notNullable()
         .references("employee_id")
         .inTable("employee")
-        .onDelete("RESTRICT");
+        .onDelete("CASCADE");
     })
     .createTable("job_employee_labor", (table) => {
       table.increments("job_employee_labor_id");

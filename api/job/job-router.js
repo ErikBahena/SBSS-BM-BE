@@ -4,12 +4,14 @@ const Job = require("./job-model.js");
 const { restricted } = require("../auth/auth-middleware");
 const { formatUserJobs } = require("../utils/index.js");
 
+// get a job by id
 router.get("/:job_id", (req, res, next) => {
   Job.findBy("j.job_id", req.params.job_id)
     .then((job) => res.status(200).json(job[0]))
     .catch(next);
 });
 
+// get all jobs related to a user
 router.get("/user-jobs/:user_id", (req, res, next) => {
   Job.findBy("j.user_id", req.params.user_id)
     .then((jobs) => {
@@ -18,7 +20,9 @@ router.get("/user-jobs/:user_id", (req, res, next) => {
     .catch(next);
 });
 
-// delete an employee from a job
+// Job Employee Endpoints
+
+// delete a job employee
 router.delete("/delete-employee/:job_id/:employee_id", (req, res, next) => {
   Job.deleteJobEmployee(req.params.job_id, req.params.employee_id)
     .then(() => res.status(204).json("success"))
@@ -32,17 +36,36 @@ router.post("/add-employee/:job_id/:employee_id", (req, res, next) => {
     .catch(next);
 });
 
-router.get("/get-employee-labor/:job_employee_id", (req, res, next) => {
-  Job.getJobEmployeeLaborHours(req.params.job_employee_id)
-    .then((employeeLabor) => res.status(200).json({ employeeLabor }))
-    .catch(next);
-});
+// Job_Employee_Labor Endpoints:
 
-// add an labor to a job regarding an employee
+// add labor to a job regarding an employee
 router.post("/add-employee-labor", (req, res, next) => {
   Job.addJobEmployeeLabor(req.body)
     .then(() => res.status(201).json("success"))
     .catch(next);
 });
+
+/* get an employees labor by their job_employee_id in the job_employee_labor table
+
+  Relation Structure:
+
+  -Job
+    -Job_Employee
+      -Job_Employee_Labor
+*/
+router.get("/get-employee-labor/:job_employee_id", (req, res, next) => {
+  Job.getJobEmployeeLaborHours(req.params.job_employee_id)
+    .then((employeeLabor) => res.status(200).json(employeeLabor))
+    .catch(next);
+});
+
+router.delete(
+  "/delete-job-employee-labor/:job_employee_labor_id",
+  (req, res, next) => {
+    Job.deleteJobEmployeeLaborHours(req.params.job_employee_labor_id)
+      .then(() => res.status(204).json("success"))
+      .catch(next);
+  }
+);
 
 module.exports = router;

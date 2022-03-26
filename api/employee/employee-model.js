@@ -42,6 +42,10 @@ async function addEmployee(newEmployee) {
     });
 }
 
+async function deleteEmployee(employee_id) {
+  return await db("employee").where({ employee_id }).del();
+}
+
 async function findById(employee_id) {
   return await db("employee as e")
     .select(
@@ -90,4 +94,4 @@ async function getAll(user_id) {
     .leftJoin("employee_address as ea", "e.employee_id", "ea.employee_id");
 }
 
-module.exports = { addEmployee, findById, getAll };
+module.exports = { addEmployee, findById, getAll, deleteEmployee };

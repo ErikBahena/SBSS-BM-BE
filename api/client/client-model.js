@@ -42,6 +42,10 @@ async function addClient(newClient) {
     });
 }
 
+async function deleteClient(client_id) {
+  return await db("client").where({ client_id }).del();
+}
+
 async function findById(client_id) {
   return await db("client as c")
     .select(
@@ -86,4 +90,4 @@ async function getAll(user_id) {
     .leftJoin("client_address as ca", "c.client_id", "ca.client_id");
 }
 
-module.exports = { addClient, findById, getAll };
+module.exports = { addClient, findById, getAll, deleteClient };

@@ -76,10 +76,15 @@ const getJobEmployeeLaborHours = async (job_employee_id) => {
     .where("jel.job_employee_id", job_employee_id);
 };
 
+const deleteJobEmployeeLaborHours = async (job_employee_labor_id) => {
+  return await db("job_employee_labor").where({ job_employee_labor_id }).del();
+};
+
 module.exports = {
   findBy,
   deleteJobEmployee,
   addJobEmployee,
   addJobEmployeeLabor,
   getJobEmployeeLaborHours,
+  deleteJobEmployeeLaborHours,
 };

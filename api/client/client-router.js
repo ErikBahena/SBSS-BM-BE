@@ -28,6 +28,13 @@ router.post("/add", (req, res, next) => {
     .catch(next);
 });
 
+// delete a client by client_id
+router.delete("/delete/:client_id", (req, res, next) => {
+  Client.deleteClient(req.params.client_id)
+    .then(() => res.status(204).json("success"))
+    .catch(next);
+});
+
 // router.put("/:client_id/:client_address_id", restricted, (req, res, next) => {
 //   const clientAccount = {
 //     first_name: req.body.first_name,

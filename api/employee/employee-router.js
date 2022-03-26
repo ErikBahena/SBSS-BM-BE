@@ -18,11 +18,11 @@ router.get("/:employee_id", restricted, (req, res, next) => {
 // get all employees related to a user_id
 
 router.get("/getAll/:user_id", restricted, (req, res, next) => {
-    Employee.getAll(req.params.user_id)
-      .then((userEmployees) =>
-        res.status(200).json(formatUserEmployees(userEmployees))
-      )
-      .catch(next);
+  Employee.getAll(req.params.user_id)
+    .then((userEmployees) =>
+      res.status(200).json(formatUserEmployees(userEmployees))
+    )
+    .catch(next);
 });
 
 // add a new employee for a user
@@ -32,6 +32,13 @@ router.post("/add", restricted, (req, res, next) => {
     .then((userEmployees) =>
       res.status(201).json(formatUserEmployees(userEmployees))
     )
+    .catch(next);
+});
+
+// delete a employee by employee_id
+router.delete("/delete/:employee_id", (req, res, next) => {
+  Employee.deleteEmployee(req.params.employee_id)
+    .then(() => res.status(204).json("success"))
     .catch(next);
 });
 
