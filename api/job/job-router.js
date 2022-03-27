@@ -11,6 +11,13 @@ router.get("/:job_id", (req, res, next) => {
     .catch(next);
 });
 
+// delete a job by job_id
+router.delete("/delete/:job_id", (req, res, next) => {
+  Job.deleteJob(req.params.job_id)
+    .then(() => res.status(204).json("success"))
+    .catch(next);
+});
+
 // get all jobs related to a user
 router.get("/user-jobs/:user_id", (req, res, next) => {
   Job.findBy("j.user_id", req.params.user_id)
@@ -40,8 +47,15 @@ router.post("/add-employee/:job_id/:employee_id", (req, res, next) => {
 
 // add labor to a job regarding an employee
 router.post("/add-employee-labor", (req, res, next) => {
-  Job.addJobEmployeeLabor(req.body)
+  Job.addJobEmployeeLaborHours(req.body)
     .then(() => res.status(201).json("success"))
+    .catch(next);
+});
+
+// update a job employees labor
+router.put("/edit-employee-labor/:job_employee_labor_id", (req, res, next) => {
+  Job.editJobEmployeeLaborHours(req.params.job_employee_labor_id, req.body)
+    .then(() => res.status(200).json("success"))
     .catch(next);
 });
 

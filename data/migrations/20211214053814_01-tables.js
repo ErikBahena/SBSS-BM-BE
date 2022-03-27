@@ -160,7 +160,8 @@ exports.up = function (knex) {
         .notNullable()
         .references("job_employee_id")
         .inTable("job_employee")
-        .onDelete("CASCADE");
+        .onDelete("CASCADE")
+        .onUpdate("RESTRICT");
     });
 };
 

@@ -1,5 +1,9 @@
 const db = require("../../data/dbConfig");
 
+const deleteJob = async (job_id) => {
+  return await db("job").where({ job_id }).del();
+};
+
 async function findBy(arg1, arg2) {
   const jobs = await db("job as j")
     .select(
@@ -53,6 +57,8 @@ async function findBy(arg1, arg2) {
   );
 }
 
+// Job Employee Functions
+
 const deleteJobEmployee = async (job_id, employee_id) => {
   return await db("job_employee as je").where({ job_id, employee_id }).del();
 };
@@ -61,8 +67,19 @@ const addJobEmployee = async (job_id, employee_id) => {
   return await db("job_employee").insert({ job_id, employee_id });
 };
 
-const addJobEmployeeLabor = async (newEvent) => {
+// Job Employee Labor Functions
+
+const addJobEmployeeLaborHours = async (newEvent) => {
   return await db("job_employee_labor").insert(newEvent);
+};
+
+const editJobEmployeeLaborHours = async (
+  job_employee_labor_id,
+  updatedJobEmployeeLabor
+) => {
+  return await db("job_employee_labor")
+    .where({ job_employee_labor_id })
+    .update(updatedJobEmployeeLabor);
 };
 
 const getJobEmployeeLaborHours = async (job_employee_id) => {
@@ -82,9 +99,11 @@ const deleteJobEmployeeLaborHours = async (job_employee_labor_id) => {
 
 module.exports = {
   findBy,
+  deleteJob,
   deleteJobEmployee,
   addJobEmployee,
-  addJobEmployeeLabor,
+  addJobEmployeeLaborHours,
+  editJobEmployeeLaborHours,
   getJobEmployeeLaborHours,
   deleteJobEmployeeLaborHours,
 };
