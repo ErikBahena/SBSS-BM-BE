@@ -4,6 +4,13 @@ const Job = require("./job-model.js");
 const { restricted } = require("../auth/auth-middleware");
 const { formatUserJobs } = require("../utils/index.js");
 
+// add a job
+router.post("/add", (req, res, next) => {
+  Job.addJob(req.body)
+    .then(() => res.status(201).json("success"))
+    .catch(next);
+});
+
 // get a job by id
 router.get("/:job_id", (req, res, next) => {
   Job.findBy("j.job_id", req.params.job_id)

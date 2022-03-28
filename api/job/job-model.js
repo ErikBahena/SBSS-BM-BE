@@ -1,5 +1,9 @@
 const db = require("../../data/dbConfig");
 
+const addJob = async (newJob) => {
+  return await db("job").insert(newJob);
+};
+
 const deleteJob = async (job_id) => {
   return await db("job").where({ job_id }).del();
 };
@@ -19,7 +23,8 @@ async function findBy(arg1, arg2) {
       "c.email as client_email"
     )
     .where(arg1, arg2)
-    .leftJoin("client as c", "j.client_id", "c.client_id");
+    .leftJoin("client as c", "j.client_id", "c.client_id")
+    .orderBy("j.created_at", "desc");
 
   return await Promise.all(
     jobs.map(async (job) => {
@@ -98,6 +103,7 @@ const deleteJobEmployeeLaborHours = async (job_employee_labor_id) => {
 };
 
 module.exports = {
+  addJob,
   findBy,
   deleteJob,
   deleteJobEmployee,
