@@ -69,10 +69,18 @@ const restricted = (req, res, next) => {
   });
 };
 
+const checkTokenMatchesUserFromDb = (req, res, next) => {
+  if (req.userFromDb.user_id === req.body.user_id) {
+    req.token = tokenBuilder(req.userFromDb);
+    next();
+  } else next({ status: 401, message: "Stop trying to hack" });
+};
+
 module.exports = {
   validateUserLogin,
   validateUserRegister,
   validatePassword,
   hashPassword,
   restricted,
+  checkTokenMatchesUserFromDb
 };

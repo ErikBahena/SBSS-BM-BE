@@ -11,6 +11,7 @@ const {
   validateUserRegister,
   validatePassword,
   hashPassword,
+  checkTokenMatchesUserFromDb,
 } = require("./auth-middleware");
 
 const { formatUserData } = require("../utils");
@@ -42,6 +43,26 @@ router.post(
       .status(200)
       .json({ ...formatUserData(req.userFromDb), token: req.token });
   }
+);
+
+router.post(
+  "/reload",
+  checkEmailExists,
+  checkTokenMatchesUserFromDb,
+  (req, res) => {
+    delete req.userFromDb.password;
+
+    res
+      .status(200)
+      .json({ ...formatUserData(req.userFromDb), token: req.token });
+  }
+);
+
+router.post(
+  "/reset-password/:user_id",
+  checkEmailExists,
+  validatePassword,
+  (req, res, next) => {}
 );
 
 module.exports = router;
