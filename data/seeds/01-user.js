@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 const { hashPassword } = require("../../api/auth/auth-helpers");
 
 exports.seed = function (knex) {
