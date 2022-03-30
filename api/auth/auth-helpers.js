@@ -1,5 +1,10 @@
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../../config");
+const bcrypt = require("bcryptjs");
+
+const { JWT_SECRET, BCRYPT_ROUNDS } = require("../../config");
+
+const hashPassword = (originalPassword) =>
+  bcrypt.hashSync(originalPassword, BCRYPT_ROUNDS);
 
 const tokenBuilder = (user) => {
   const payload = {
@@ -18,4 +23,5 @@ const tokenBuilder = (user) => {
 
 module.exports = {
   tokenBuilder,
+  hashPassword,
 };

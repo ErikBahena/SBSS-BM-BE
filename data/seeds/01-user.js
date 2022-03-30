@@ -1,9 +1,5 @@
 const bcrypt = require("bcryptjs");
-const { BCRYPT_ROUNDS } = require("../../config");
-
-const hashPassword = (originalPassword) => {
-  return bcrypt.hashSync(originalPassword, BCRYPT_ROUNDS);
-};
+const { hashPassword } = require("../../api/auth/auth-helpers");
 
 exports.seed = function (knex) {
   return knex("user").insert([

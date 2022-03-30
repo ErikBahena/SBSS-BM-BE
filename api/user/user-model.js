@@ -95,10 +95,15 @@ async function deleteUser(user_id) {
   return deleted;
 }
 
+const updatePassword = async (user_id, newPassword) => {
+  return await db("user").where({ user_id }).update("password", newPassword);
+};
+
 module.exports = {
   addUser,
   findById,
   updateUser,
   deleteUser,
   findBy,
+  updatePassword,
 };

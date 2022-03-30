@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../user/user-model");
+const { hashPassword } = require("./auth-helpers");
 
 const {
   alreadyExistsInDb,
@@ -10,8 +11,9 @@ const {
   validateUserLogin,
   validateUserRegister,
   validatePassword,
-  hashPassword,
+  createTokenAndHashPassword,
   checkTokenMatchesUserFromDb,
+  checkUserIdMatches,
 } = require("./auth-middleware");
 
 const { formatUserData } = require("../utils");
@@ -20,7 +22,7 @@ router.post(
   "/register",
   validateUserRegister,
   alreadyExistsInDb,
-  hashPassword,
+  createTokenAndHashPassword,
   (req, res, next) => {
     User.addUser(req.user)
       .then((newUser) => {
@@ -58,11 +60,19 @@ router.post(
   }
 );
 
-router.post(
-  "/reset-password/:user_id",
+// reset user password, requires user_id in req.params, {email, password, newPassword} in req.body
+router.put(
+  "/update-password/:user_id",
   checkEmailExists,
+  checkUserIdMatches,
   validatePassword,
-  (req, res, next) => {}
+  (req, res, next) => {
+    const newPassword = hashPassword(req.body.newPassword);
+
+    User.updatePassword(req.params.user_id, newPassword)
+      .then(() => res.status(201).json("success"))
+      .catch(next);
+  }
 );
 
 module.exports = router;

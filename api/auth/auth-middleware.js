@@ -1,8 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { tokenBuilder } = require("./auth-helpers");
-const { BCRYPT_ROUNDS, JWT_SECRET } = require("../../config");
+const { tokenBuilder, hashPassword } = require("./auth-helpers");
+const { JWT_SECRET } = require("../../config");
 
 const validateUserLogin = (req, res, next) => {
   const user = req.body;
@@ -47,10 +47,10 @@ const validatePassword = (req, res, next) => {
   } else next({ status: 401, message: "wrong password", type: "password" });
 };
 
-const hashPassword = (req, res, next) => {
+const createTokenAndHashPassword = (req, res, next) => {
   const user = req.body;
 
-  user.password = bcrypt.hashSync(user.password, BCRYPT_ROUNDS);
+  user.password = hashPassword(user.password);
   req.token = tokenBuilder(user);
   req.user = user;
 
@@ -76,11 +76,17 @@ const checkTokenMatchesUserFromDb = (req, res, next) => {
   } else next({ status: 401, message: "Stop trying to hack" });
 };
 
+const checkUserIdMatches = (req, res, next) => {
+  if (req.userFromDb.user_id == req.params.user_id) next();
+  else next({ status: 401, message: "user_id doest not match" });
+};
+
 module.exports = {
   validateUserLogin,
   validateUserRegister,
   validatePassword,
-  hashPassword,
+  createTokenAndHashPassword,
   restricted,
-  checkTokenMatchesUserFromDb
+  checkTokenMatchesUserFromDb,
+  checkUserIdMatches,
 };
