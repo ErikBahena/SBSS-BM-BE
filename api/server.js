@@ -1,3 +1,4 @@
+const { NODE_ENV } = require("../config");
 const express = require("express");
 const server = express();
 const helmet = require("helmet");
@@ -20,12 +21,13 @@ server.use("/api/employee", employeeRouter);
 server.use("/api/job", jobRouter);
 
 server.get("/", (req, res) => {
-  res.status(200).json("Welcome 👋")
+  res.status(200).json("Welcome 👋");
 });
 
 server.use((err, req, res, next) => {
-  console.log(err.stack, err.status, "message:", err.message);
-  res.status(err.status || 500).json({ ...err, stack: err.stack });
+  if (NODE_ENV === "development")
+    console.log(err.stack, err.status, "message:", err.message);
+  else res.status(err.status || 500).json({ ...err, stack: err.stack });
 });
 
 module.exports = server;
