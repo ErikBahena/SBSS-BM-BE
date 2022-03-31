@@ -3,11 +3,8 @@ const bcrypt = require("bcryptjs");
 
 const { JWT_SECRET, BCRYPT_ROUNDS } = require("../../config");
 
-const hashPassword = async (originalPassword) => {
-  const salt = bcrypt.genSaltSync(BCRYPT_ROUNDS);
-
-  return bcrypt.hashSync(originalPassword, salt);
-};
+const hashPassword = async (originalPassword) =>
+  bcrypt.hashSync(originalPassword, BCRYPT_ROUNDS);
 
 const tokenBuilder = (user) => {
   const payload = {
