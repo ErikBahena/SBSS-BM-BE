@@ -1,5 +1,5 @@
 {
-  "name": "project_name",
+  "name": "sbss-be-db",
   "author": "Erik Bahena",
   "version": "1.0.0",
   "description": "This is boiler-plate code when you're starting a new postgres backend project.",
@@ -12,11 +12,11 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "update": "npm run rollback && npm run migrate && npm run seed",
-    "rollbackh": "heroku run knex migrate:rollback -a PROJECT_NAME",
-    "migrateh": "heroku run knex migrate:latest -a PROJECT_NAME",
-    "seedh": "heroku run knex seed:run -a PROJECT_NAME",
+    "rollbackh": "heroku run knex migrate:rollback -a sbss-be-db",
+    "migrateh": "heroku run knex migrate:latest -a sbss-be-db",
+    "seedh": "heroku run knex seed:run -a sbss-be-db",
     "resetdbh": "npm run rollbackh && npm run migrateh && npm run seedh",
-    "databaseh": "heroku pg:psql -a PROJECT_NAME",
+    "databaseh": "heroku pg:psql -a sbss-be-db",
     "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
     "deploy": "git push heroku main"
   },
