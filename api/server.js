@@ -19,6 +19,10 @@ server.use("/api/client", clientRouter);
 server.use("/api/employee", employeeRouter);
 server.use("/api/job", jobRouter);
 
+server.get("/", (req, res) => {
+  res.status(200).json("Welcome 👋")
+});
+
 server.use((err, req, res, next) => {
   console.log(err.stack, err.status, "message:", err.message);
   res.status(err.status || 500).json({ ...err, stack: err.stack });
