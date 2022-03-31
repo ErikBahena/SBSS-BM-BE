@@ -63,7 +63,6 @@ const restricted = (req, res, next) => {
   if (!token) next({ status: 401, message: "token required" });
 
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    // the decoded value would be equal to the object in the tokenBuilder funciton
     if (err) next({ status: 401, message: "token invalid" });
     else next();
   });

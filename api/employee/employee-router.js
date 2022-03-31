@@ -36,7 +36,7 @@ router.post("/add", restricted, (req, res, next) => {
 });
 
 // delete a employee by employee_id
-router.delete("/delete/:employee_id", (req, res, next) => {
+router.delete("/delete/:employee_id", restricted, (req, res, next) => {
   Employee.deleteEmployee(req.params.employee_id)
     .then(() => res.status(204).json("success"))
     .catch(next);

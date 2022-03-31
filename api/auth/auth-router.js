@@ -14,6 +14,7 @@ const {
   createTokenAndHashPassword,
   checkTokenMatchesUserFromDb,
   checkUserIdMatches,
+  restricted,
 } = require("./auth-middleware");
 
 const { formatUserData } = require("../utils");
@@ -49,6 +50,7 @@ router.post(
 
 router.post(
   "/reload",
+  restricted,
   checkEmailExists,
   checkTokenMatchesUserFromDb,
   (req, res) => {
@@ -63,6 +65,7 @@ router.post(
 // reset user password, requires user_id in req.params, {email, password, newPassword} in req.body
 router.put(
   "/update-password/:user_id",
+  restricted,
   checkEmailExists,
   checkUserIdMatches,
   validatePassword,

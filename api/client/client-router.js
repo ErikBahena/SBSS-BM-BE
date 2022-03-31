@@ -22,14 +22,14 @@ router.get("/getAll/:user_id", restricted, (req, res, next) => {
 
 // add a new client for a user
 
-router.post("/add", (req, res, next) => {
+router.post("/add", restricted, (req, res, next) => {
   Client.addClient(req.body)
     .then((userClients) => res.status(201).json(formatUserClients(userClients)))
     .catch(next);
 });
 
 // delete a client by client_id
-router.delete("/delete/:client_id", (req, res, next) => {
+router.delete("/delete/:client_id", restricted, (req, res, next) => {
   Client.deleteClient(req.params.client_id)
     .then(() => res.status(204).json("success"))
     .catch(next);
