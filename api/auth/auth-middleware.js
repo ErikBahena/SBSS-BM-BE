@@ -40,8 +40,13 @@ const validateUserRegister = (req, res, next) => {
   else next();
 };
 
-const validatePassword = (req, res, next) => {
-  if (bcrypt.compareSync(req.body.password, req.userFromDb.password)) {
+const validatePassword = async (req, res, next) => {
+  const match = await bcrypt.compare(
+    req.body.password,
+    req.userFromDb.password
+  );
+
+  if (match) {
     req.token = tokenBuilder(req.userFromDb);
     next();
   } else next({ status: 401, message: "wrong password", type: "password" });
