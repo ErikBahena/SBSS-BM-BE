@@ -52,10 +52,10 @@ const validatePassword = async (req, res, next) => {
   } else next({ status: 401, message: "wrong password", type: "password" });
 };
 
-const createTokenAndHashPassword = (req, res, next) => {
+const createTokenAndHashPassword = async (req, res, next) => {
   const user = req.body;
 
-  user.password = hashPassword(user.password);
+  user.password = await hashPassword(user.password);
   req.token = tokenBuilder(user);
   req.user = user;
 

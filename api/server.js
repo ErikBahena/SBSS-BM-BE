@@ -27,7 +27,8 @@ server.get("/", (req, res) => {
 server.use((err, req, res, next) => {
   if (NODE_ENV === "development")
     console.log(err.stack, err.status, "message:", err.message);
-  else res.status(err.status || 500).json({ ...err, stack: err.stack });
+
+  res.status(err.status || 500).json({ ...err, stack: err.stack });
 });
 
 module.exports = server;

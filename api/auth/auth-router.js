@@ -69,8 +69,8 @@ router.put(
   checkEmailExists,
   checkUserIdMatches,
   validatePassword,
-  (req, res, next) => {
-    const newPassword = hashPassword(req.body.newPassword);
+  async (req, res, next) => {
+    const newPassword = await hashPassword(req.body.newPassword);
 
     User.updatePassword(req.params.user_id, newPassword)
       .then(() => res.status(201).json("success"))
