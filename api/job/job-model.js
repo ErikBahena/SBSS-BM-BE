@@ -82,24 +82,24 @@ const getJobEmployeeLaborHours = async (job_employee_id) => {
   return await db("job_employee_labor as jel")
     .select(
       "jel.description",
-      "jel.start",
-      "jel.end",
+      "jel.startDateTime",
+      "jel.endDateTime",
       "jel.job_employee_labor_id"
     )
     .where("jel.job_employee_id", job_employee_id);
 };
 
-const getJobEmployeeLaborHoursByRange = async (job_employee_id, range) => {
+const getJobEmployeeLaborByRange = async (job_employee_id, range) => {
   return await db("job_employee_labor as jel")
     .select(
       "jel.description",
-      "jel.start",
-      "jel.end",
+      "jel.startDateTime",
+      "jel.endDateTime",
       "jel.job_employee_labor_id"
     )
     .where("jel.job_employee_id", job_employee_id)
-    .where("jel.start", ">=", range.startDateTime)
-    .where("jel.end", "<=", range.endDateTime);
+    .where("jel.startDateTime", ">=", range.startDateTime)
+    .where("jel.endDateTime", "<=", range.endDateTime);
 };
 
 const editJobEmployeeLaborHours = async (
@@ -123,7 +123,7 @@ module.exports = {
   addJobEmployee,
   addJobEmployeeLaborHours,
   getJobEmployeeLaborHours,
-  getJobEmployeeLaborHoursByRange,
+  getJobEmployeeLaborByRange,
   editJobEmployeeLaborHours,
   deleteJobEmployeeLaborHours,
 };

@@ -149,8 +149,8 @@ exports.up = function (knex) {
 
       table.timestamps(true, true);
 
-      table.string("start").notNullable();
-      table.string("end").notNullable();
+      table.string("startDateTime").notNullable();
+      table.string("endDateTime").notNullable();
 
       table.string("description").notNullable();
 

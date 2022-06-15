@@ -102,7 +102,7 @@ router.get(
   restricted,
   isDateTimeRangeValid,
   (req, res, next) => {
-    Job.getJobEmployeeLaborHoursByRange(req.params.job_employee_id, req.body)
+    Job.getJobEmployeeLaborByRange(req.params.job_employee_id, req.body)
       .then((employeeLabor) => res.status(200).json(employeeLabor))
       .catch(next);
   }
