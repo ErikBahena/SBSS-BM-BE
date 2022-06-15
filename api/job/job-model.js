@@ -78,15 +78,6 @@ const addJobEmployeeLaborHours = async (newEvent) => {
   return await db("job_employee_labor").insert(newEvent);
 };
 
-const editJobEmployeeLaborHours = async (
-  job_employee_labor_id,
-  updatedJobEmployeeLabor
-) => {
-  return await db("job_employee_labor")
-    .where({ job_employee_labor_id })
-    .update(updatedJobEmployeeLabor);
-};
-
 const getJobEmployeeLaborHours = async (job_employee_id) => {
   return await db("job_employee_labor as jel")
     .select(
@@ -96,6 +87,28 @@ const getJobEmployeeLaborHours = async (job_employee_id) => {
       "jel.job_employee_labor_id"
     )
     .where("jel.job_employee_id", job_employee_id);
+};
+
+const getJobEmployeeLaborHoursByRange = async (job_employee_id, range) => {
+  return await db("job_employee_labor as jel")
+    .select(
+      "jel.description",
+      "jel.start",
+      "jel.end",
+      "jel.job_employee_labor_id"
+    )
+    .where("jel.job_employee_id", job_employee_id)
+    .where("jel.start", ">=", range.startDateTime)
+    .where("jel.end", "<=", range.endDateTime);
+};
+
+const editJobEmployeeLaborHours = async (
+  job_employee_labor_id,
+  updatedJobEmployeeLabor
+) => {
+  return await db("job_employee_labor")
+    .where({ job_employee_labor_id })
+    .update(updatedJobEmployeeLabor);
 };
 
 const deleteJobEmployeeLaborHours = async (job_employee_labor_id) => {
@@ -109,7 +122,8 @@ module.exports = {
   deleteJobEmployee,
   addJobEmployee,
   addJobEmployeeLaborHours,
-  editJobEmployeeLaborHours,
   getJobEmployeeLaborHours,
+  getJobEmployeeLaborHoursByRange,
+  editJobEmployeeLaborHours,
   deleteJobEmployeeLaborHours,
 };

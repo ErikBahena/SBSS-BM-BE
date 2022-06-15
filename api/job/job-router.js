@@ -3,6 +3,7 @@ const Job = require("./job-model.js");
 
 const { restricted } = require("../auth/auth-middleware");
 const { formatUserJobs } = require("../utils/index.js");
+const { isDateTimeRangeValid } = require("./job-middleware");
 
 // add a job
 router.post("/add", restricted, (req, res, next) => {
@@ -91,6 +92,17 @@ router.get(
   restricted,
   (req, res, next) => {
     Job.getJobEmployeeLaborHours(req.params.job_employee_id)
+      .then((employeeLabor) => res.status(200).json(employeeLabor))
+      .catch(next);
+  }
+);
+
+router.get(
+  "/get-employee-labor-by-range/:job_employee_id",
+  restricted,
+  isDateTimeRangeValid,
+  (req, res, next) => {
+    Job.getJobEmployeeLaborHoursByRange(req.params.job_employee_id, req.body)
       .then((employeeLabor) => res.status(200).json(employeeLabor))
       .catch(next);
   }
